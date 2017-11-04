@@ -37,9 +37,8 @@ $app->get('/cowsay', function() use($app) {
 
 $app->get('/datetime', function() use($app) {
   $app['monolog']->addDebug('logging output.');
-    $time1 = date('H:i:s', time() - date('Z')); // 12:50:29
-$time2 = date('H:i:s', gmdate('U')); // 13:50:29
-  return "Oggi è " . date("Y/m/d") . ". Buona Giornata!<br>Sono le ore ". $time1 .".<br> Sono le ore ".$time2.".";
+$time1 = date('H:i:s', gmdate('U')); // 13:50:29
+  return "Oggi è " . date("Y/m/d") . ". Buona Giornata!<br>Sono le ore ". $time1 .".";
 });
 
 
