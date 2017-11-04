@@ -1,5 +1,9 @@
 <?php
 
+// impostare data-ora italiana
+date_default_timezone_set('Europe/Rome');
+
+
 require('../vendor/autoload.php');
 
 $app = new Silex\Application();
@@ -33,7 +37,7 @@ $app->get('/cowsay', function() use($app) {
 
 $app->get('/datetime', function() use($app) {
   $app['monolog']->addDebug('logging output.');
-  return "Today is " . date("Y/m/d") . "<br>";
+  return "Oggi è " . date("Y/m/d") . ". Buona Giornata!<br>Sono le ore ". time();
 });
 
 
