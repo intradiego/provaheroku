@@ -29,6 +29,14 @@ $app->get('/cowsay', function() use($app) {
   return "<pre>".\Cowsayphp\Cow::say("Cool beans")."</pre>";
 });
 
+//funzione per ottenere l'orario del server
+
+$app->get('/datetime', function() use($app) {
+  $app['monolog']->addDebug('logging output.');
+  return "Today is " . date("Y/m/d") . "<br>";
+});
+
+
+
 $app->run();
 
-?>
