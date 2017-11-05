@@ -92,7 +92,7 @@ $app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider
                    'user' => 'bea3371a839a4b',
                    'password' => '00a24169',
                    'host' => 'us-cdbr-iron-east-05.cleardb.net',
-                   'port' => '3306',
+                   'port' => 3306,
                    'dbname' => 'heroku_5a1d1b26eb4d349' )
                    )
                )
