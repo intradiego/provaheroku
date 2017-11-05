@@ -83,7 +83,7 @@ $app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider
 */
 
 // database config
-
+/*
 $app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider('pdo'),
                array(
                 'pdo.server' => array(
@@ -97,7 +97,7 @@ $app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider
                    )
                )
 );
-
+*/
 // query database
 
 $app->get('/db/', function() use($app) {
@@ -116,5 +116,3 @@ $app->get('/db/', function() use($app) {
 });
 
 $app->run();
-
-?>
