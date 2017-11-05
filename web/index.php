@@ -1,11 +1,46 @@
 <?php
 
+use Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider;
+use Silex\Application;
+
+// database config
+
+$app->register(
+    // you can customize services and options prefix with the provider first argument (default = 'pdo')
+    new PDOServiceProvider('pdo'),
+    array(
+        'pdo.server'   => array(
+            // PDO driver to use among : mysql, pgsql , oracle, mssql, sqlite, dblib
+            'driver'   => 'mysql',
+            'host'     => 'us-cdbr-iron-east-05.cleardb.net',
+            'dbname'   => 'heroku_5a1d1b26eb4d349',
+            'port'     => 3306,
+            'user'     => 'bea3371a839a4b',
+            'password' => '00a24169',
+        )
+        // optional PDO attributes used in PDO constructor 4th argument driver_options
+        // some PDO attributes can be used only as PDO driver_options
+        // see http://www.php.net/manual/fr/pdo.construct.php
+        //'pdo.options' => array(
+        //    \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"
+        //),
+        // optional PDO attributes set with PDO::setAttribute
+        // see http://www.php.net/manual/fr/pdo.setattribute.php
+        //'pdo.attributes' => array(
+        //    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+        //),
+    )
+);
+
+// get PDO connection
+$pdo = $app['pdo'];
+
 // impostare data-ora italiana
 date_default_timezone_set('Europe/Rome');
 
 require('../vendor/autoload.php');
 
-$app = new Silex\Application();
+$app = new Application();
 $app['debug'] = true;
 
 // Register the monolog logging service
@@ -63,43 +98,6 @@ $db = substr($url["path"], 1);
 $conn = new mysqli($server, $username, $password, $db);
 
 */
-
-// utilizzo di PDO astrazione accesso database php
-
-/*
-$dbopts = parse_url(getenv('DATABASE_URL'));
-$app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider('pdo'),
-               array(
-                'pdo.server' => array(
-                   'driver'   => 'pgsql',
-                   'user' => $dbopts["user"],
-                   'password' => $dbopts["pass"],
-                   'host' => $dbopts["host"],
-                   'port' => $dbopts["port"],
-                   'dbname' => ltrim($dbopts["path"],'/')
-                   )
-               )
-);
-*/
-
-// database config
-
-$app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider('pdo'),
-               array(
-                'pdo.server' => array(
-                   'driver'   => 'mysql',
-                    // PDO driver to use among : mysql, pgsql , oracle, mssql, sqlite, dblib
-                   'user' => 'bea3371a839a4b',
-                   'password' => '00a24169',
-                   'host' => 'us-cdbr-iron-east-05.cleardb.net',
-                   'port' => 3306,
-                   'dbname' => 'heroku_5a1d1b26eb4d349' )
-                   )
-               )
-);
-
-// get PDO connection
-$pdo = $app['pdo'];
 
 // query database
 
