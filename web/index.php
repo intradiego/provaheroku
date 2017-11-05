@@ -49,7 +49,7 @@ $time1 = date('H:i:s', gmdate('U')); // 13:50:29
 });
 
 //utilizzo  https://github.com/plehr/Heroku-and-PDO/blob/master/clearDB.php
-
+/*
 $dbstr = getenv('CLEARDB_DATABASE_URL');
 $dbstr = substr("$dbstr", 8);
 $dbstrarruser = explode(":", $dbstr);
@@ -83,7 +83,7 @@ $app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider
 );
 
 
-/*
+
 php per connessione con database cleardb mysqli
 
 <?php
@@ -133,3 +133,4 @@ $app->get('/db/', function() use($app) {
 
 $app->run();
 
+?>
