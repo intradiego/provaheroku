@@ -3,18 +3,19 @@
 // impostare data-ora italiana
 date_default_timezone_set('Europe/Rome');
 
-
 require('../vendor/autoload.php');
 
 $app = new Silex\Application();
 $app['debug'] = true;
 
 // Register the monolog logging service
+
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
   'monolog.logfile' => 'php://stderr',
 ));
 
 // Register view rendering
+
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/views',
 ));
@@ -40,7 +41,7 @@ $app->get('/ripeti', function() use($app) {
   return str_repeat('Hello. <br>', getenv('TIMES'));
 });
 
-//funzione per ottenere l'orario del server
+//funzione per ottenere l'orario
 
 $app->get('/datetime', function() use($app) {
   $app['monolog']->addDebug('logging output.');
@@ -48,45 +49,10 @@ $time1 = date('H:i:s', gmdate('U')); // 13:50:29
   return "Oggi è " . date("Y/m/d") . ". Buona Giornata!<br>Sono le ore ". $time1 .".";
 });
 
-//utilizzo  https://github.com/plehr/Heroku-and-PDO/blob/master/clearDB.php
-/*
-$dbstr = getenv('CLEARDB_DATABASE_URL');
-$dbstr = substr("$dbstr", 8);
-$dbstrarruser = explode(":", $dbstr);
-//Please don't look at these names. Yes I know that this is a little bit trash :D
-$dbstrarrhost = explode("@", $dbstrarruser[1]);
-$dbstrarrrecon = explode("?", $dbstrarrhost[1]);
-$dbstrarrport = explode("/", $dbstrarrrecon[0]);
-$dbpassword = $dbstrarrhost[0];
-$dbhost = $dbstrarrport[0];
-$dbport = $dbstrarrport[0];
-$dbuser = $dbstrarruser[0];
-$dbname = $dbstrarrport[1];
-unset($dbstrarrrecon);
-unset($dbstrarrport);
-unset($dbstrarruser);
-unset($dbstrarrhost);
-unset($dbstr);
-*/
-$app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider('pdo'),
-               array(
-                'pdo.server' => array(
-                   'driver'   => 'mysql',
-                    // PDO driver to use among : mysql, pgsql , oracle, mssql, sqlite, dblib
-                   'user' => "bea3371a839a4b",
-                   'password' => "00a24169",
-                   'host' => "us-cdbr-iron-east-05.cleardb.net",
-                   'port' => "3306",
-                   'dbname' => "heroku_5a1d1b26eb4d349" )
-                   )
-               )
-);
+//  https://github.com/plehr/Heroku-and-PDO/blob/master/clearDB.php
 
+/*  //connessione con database cleardb mysqli
 
-/*
-php per connessione con database cleardb mysqli
-
-<?php
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
 $server = $url["host"];
@@ -95,10 +61,11 @@ $password = $url["pass"];
 $db = substr($url["path"], 1);
 
 $conn = new mysqli($server, $username, $password, $db);
-?>
 
 */
+
 // utilizzo di PDO astrazione accesso database php
+
 /*
 $dbopts = parse_url(getenv('DATABASE_URL'));
 $app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider('pdo'),
@@ -114,6 +81,23 @@ $app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider
                )
 );
 */
+
+// database config
+
+$app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider('pdo'),
+               array(
+                'pdo.server' => array(
+                   'driver'   => 'mysql',
+                    // PDO driver to use among : mysql, pgsql , oracle, mssql, sqlite, dblib
+                   'user' => 'bea3371a839a4b',
+                   'password' => '00a24169',
+                   'host' => 'us-cdbr-iron-east-05.cleardb.net',
+                   'port' => '3306',
+                   'dbname' => 'heroku_5a1d1b26eb4d349' )
+                   )
+               )
+);
+
 // query database
 
 $app->get('/db/', function() use($app) {
