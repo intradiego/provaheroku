@@ -37,7 +37,7 @@ $app->get('/cowsay', function() use($app) {
 
 $app->get('/ripeti', function() use($app) {
   $app['monolog']->addDebug('logging output.');
-  return str_repeat('Hello', getenv('TIMES'));
+  return str_repeat('Hello. <br>', getenv('TIMES'));
 });
 
 //funzione per ottenere l'orario del server
