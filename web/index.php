@@ -33,6 +33,13 @@ $app->get('/cowsay', function() use($app) {
   return "<pre>".\Cowsayphp\Cow::say("Cool beans")."</pre>";
 });
 
+//aggiunta funzione per leggere un parametro dal file di configurazione
+
+$app->get('/', function() use($app) {
+  $app['monolog']->addDebug('logging output.');
+  return str_repeat('Hello', getenv('TIMES'));
+});
+
 //funzione per ottenere l'orario del server
 
 $app->get('/datetime', function() use($app) {
