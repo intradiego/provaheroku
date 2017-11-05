@@ -48,8 +48,58 @@ $time1 = date('H:i:s', gmdate('U')); // 13:50:29
   return "Oggi è " . date("Y/m/d") . ". Buona Giornata!<br>Sono le ore ". $time1 .".";
 });
 
-// utilizzo di PDO astrazione accesso database php
+//utilizzo  https://github.com/plehr/Heroku-and-PDO/blob/master/clearDB.php
 
+$dbstr = getenv('CLEARDB_DATABASE_URL');
+$dbstr = substr("$dbstr", 8);
+$dbstrarruser = explode(":", $dbstr);
+//Please don't look at these names. Yes I know that this is a little bit trash :D
+$dbstrarrhost = explode("@", $dbstrarruser[1]);
+$dbstrarrrecon = explode("?", $dbstrarrhost[1]);
+$dbstrarrport = explode("/", $dbstrarrrecon[0]);
+$dbpassword = $dbstrarrhost[0];
+$dbhost = $dbstrarrport[0];
+$dbport = $dbstrarrport[0];
+$dbuser = $dbstrarruser[0];
+$dbname = $dbstrarrport[1];
+unset($dbstrarrrecon);
+unset($dbstrarrport);
+unset($dbstrarruser);
+unset($dbstrarrhost);
+unset($dbstr);
+
+$app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider('pdo'),
+               array(
+                'pdo.server' => array(
+                   'driver'   => 'mysql',
+                    // PDO driver to use among : mysql, pgsql , oracle, mssql, sqlite, dblib
+                   'user' => $dbuser,
+                   'password' => $dbpassword,
+                   'host' => $dbhost,
+                   'port' => "3306",
+                   'dbname' => $dbname )
+                   )
+               )
+);
+
+
+/*
+php per connessione con database cleardb mysqli
+
+<?php
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+$server = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$db = substr($url["path"], 1);
+
+$conn = new mysqli($server, $username, $password, $db);
+?>
+
+*/
+// utilizzo di PDO astrazione accesso database php
+/*
 $dbopts = parse_url(getenv('DATABASE_URL'));
 $app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider('pdo'),
                array(
@@ -63,7 +113,7 @@ $app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider
                    )
                )
 );
-
+*/
 // query database
 
 $app->get('/db/', function() use($app) {
