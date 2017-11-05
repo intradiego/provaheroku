@@ -4,7 +4,7 @@ use Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider;
 use Silex\Application;
 
 // database config
-
+/*
 $app->register(
     // you can customize services and options prefix with the provider first argument (default = 'pdo')
     new PDOServiceProvider('pdo'),
@@ -30,7 +30,7 @@ $app->register(
         //    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
         //),
     )
-);
+);*/
 
 // get PDO connection
 $pdo = $app['pdo'];
