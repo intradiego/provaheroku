@@ -67,23 +67,23 @@ unset($dbstrarrport);
 unset($dbstrarruser);
 unset($dbstrarrhost);
 unset($dbstr);
-
+*/
 $app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider('pdo'),
                array(
                 'pdo.server' => array(
                    'driver'   => 'mysql',
                     // PDO driver to use among : mysql, pgsql , oracle, mssql, sqlite, dblib
-                   'user' => $dbuser,
-                   'password' => $dbpassword,
-                   'host' => $dbhost,
+                   'user' => "bea3371a839a4b",
+                   'password' => "00a24169",
+                   'host' => "us-cdbr-iron-east-05.cleardb.net",
                    'port' => "3306",
-                   'dbname' => $dbname )
+                   'dbname' => "heroku_5a1d1b26eb4d349" )
                    )
                )
 );
 
 
-
+/*
 php per connessione con database cleardb mysqli
 
 <?php
