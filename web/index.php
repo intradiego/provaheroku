@@ -35,7 +35,7 @@ $app->get('/cowsay', function() use($app) {
 
 //aggiunta funzione per leggere un parametro dal file di configurazione
 
-$app->get('/', function() use($app) {
+$app->get('/ripeti', function() use($app) {
   $app['monolog']->addDebug('logging output.');
   return str_repeat('Hello', getenv('TIMES'));
 });
