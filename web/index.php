@@ -100,7 +100,7 @@ $conn = new mysqli($server, $username, $password, $db);
 */
 
 // query database
-
+//la mia prova è fallita
 $app->get('/db/', function() use($app) {
   $st = $app['pdo']->prepare('SELECT name FROM test_table');
   $st->execute();
